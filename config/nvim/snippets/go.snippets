@@ -1,0 +1,270 @@
+snippet init_gorm_repo "gin repository"
+	// ${1:Domain} defines repository for ${1:Domain}.
+	type ${1:Domain} struct {
+		db *gorm.DB
+		*Commons[model.${2:Model}]
+	}
+
+	// New${1:Domain} creates new ${1:Domain} instance.
+	func New${1:Domain}(db *gorm.DB) *${1:Domain} {
+		return &${1:Domain}{db: db, Commons: NewCommons[model.${2:Model}](db)}
+	}
+
+snippet init_gin_http "gin http template"
+	// ${1:Domain} api.
+	type ${1:Domain} struct {
+		svc ${1:Domain}Service
+		BaseHTTP
+	}
+
+	// New${1:Domain} creates new ${1:Domain} api.
+	func New${1:Domain}(svc ${1:Domain}Service) *${1:Domain} {
+		return &${1:Domain}{svc: svc, BaseHTTP: &baseHTTP{}}
+	}
+
+	// Bind${1:Endpoint} bind cms http.
+	func (h *${1:Domain}) Bind${1:Endpoint}(r *gin.RouterGroup) *${1:Domain} {
+		return h
+	}
+snippet init_service "service template"
+	var _ api.${1:Domain}Service = (*${1:Domain})(nil)
+
+	// New${1:Domain} creates new instance of ${1:Domain}.
+	func New${1:Domain}(repos Repos) *${1:Domain} {
+		s := &${1:Domain}{
+			repos: repos,
+		}
+
+		return s
+	}
+
+	// ${1:Domain} service.
+	type ${1:Domain} struct {
+		repos Repos
+	}
+
+snippet inout "inout template"
+	type (
+		// ${1:Method}${2:Domain}${3:Sub}Input is the input data for ${2:Domain}.${1:Method}${3:Sub}.
+		${1:Method}${2:Domain}${3:Sub}Input struct {
+		}
+
+		// ${1:Method}${2:Domain}${3:Sub}Output is the output data for ${2:Domain}.${1:Method}${3:Sub}.
+		${1:Method}${2:Domain}${3:Sub}Output struct {
+		}
+	)
+
+snippet rqrp "rqrp template"
+	type (
+		// ${1:Method}${2:Domain}${3:Sub}Request is the request data for ${2:Domain}.${1:Method}${3:Sub}.
+		${1:Method}${2:Domain}${3:Sub}Request struct {
+		}
+
+		// ${1:Method}${2:Domain}${3:Sub}Response is the response data for ${2:Domain}.${1:Method}${3:Sub}.
+		${1:Method}${2:Domain}${3:Sub}Response struct {
+		}
+	)
+
+snippet gin_crud "crud gin"
+	type (
+		// Create${1:Domain}${2:Sub}Request is the request data for ${1:Domain}.Create${2:Sub}.
+		Create${1:Domain}${2:Sub}Request struct {
+		}
+
+		// Create${1:Domain}${2:Sub}Response is the response data for ${1:Domain}.Create${2:Sub}.
+		Create${1:Domain}${2:Sub}Response struct {
+		}
+	)
+
+	type (
+		// Get${1:Domain}${2:Sub}Request is the request data for ${1:Domain}.Get${2:Sub}.
+		Get${1:Domain}${2:Sub}Request struct {
+			ID int \`uri:"id"\`
+		}
+
+		// Get${1:Domain}${2:Sub}Response is the response data for ${1:Domain}.Get${2:Sub}.
+		Get${1:Domain}${2:Sub}Response struct {
+		}
+	)
+
+	type (
+		// List${1:Domain}${2:Sub}Request is the request data for ${1:Domain}.List${2:Sub}.
+		List${1:Domain}${2:Sub}Request struct {
+		}
+
+		// List${1:Domain}${2:Sub}Response is the response data for ${1:Domain}.List${2:Sub}.
+		List${1:Domain}${2:Sub}Response struct {
+		}
+	)
+
+	type (
+		// Update${1:Domain}${2:Sub}Request is the request data for ${1:Domain}.Update${2:Sub}.
+		Update${1:Domain}${2:Sub}Request struct {
+			ID int \`uri:"id"\`
+		}
+
+		// Update${1:Domain}${2:Sub}Response is the response data for ${1:Domain}.Update${2:Sub}.
+		Update${1:Domain}${2:Sub}Response struct {
+		}
+	)
+
+	type (
+		// Delete${1:Domain}${2:Sub}Request is the request data for ${1:Domain}.Delete${2:Sub}.
+		Delete${1:Domain}${2:Sub}Request struct {
+			ID int \`uri:"id"\`
+		}
+
+		// Delete${1:Domain}${2:Sub}Response is the response data for ${1:Domain}.Delete${2:Sub}.
+		Delete${1:Domain}${2:Sub}Response struct {
+		}
+	)
+snippet crud_srv_intf_method "crud service intf method"
+	Create${2:Sub}(ctx context.Context, req *dto.Create${1:Domain}${2:Sub}Request) (*dto.Create${1:Domain}${2:Sub}Response, error)
+	Get${2:Sub}(ctx context.Context, req *dto.Get${1:Domain}${2:Sub}Request) (*dto.Get${1:Domain}${2:Sub}Response, error)
+	List${2:Sub}(ctx context.Context, req *dto.List${1:Domain}${2:Sub}Request) (*dto.List${1:Domain}${2:Sub}Response, error)
+	Update${2:Sub}(ctx context.Context, req *dto.Update${1:Domain}${2:Sub}Request) (*dto.Update${1:Domain}${2:Sub}Response, error)
+	Delete${2:Sub}(ctx context.Context, req *dto.Delete${1:Domain}${2:Sub}Request) (*dto.Delete${1:Domain}${2:Sub}Response, error)
+
+snippet csim "crud service intf method"
+	Create${2:Sub}(ctx context.Context, req *dto.Create${1:Domain}${2:Sub}Request) (*dto.Create${1:Domain}${2:Sub}Response, error)
+	Get${2:Sub}(ctx context.Context, req *dto.Get${1:Domain}${2:Sub}Request) (*dto.Get${1:Domain}${2:Sub}Response, error)
+	List${2:Sub}(ctx context.Context, req *dto.List${1:Domain}${2:Sub}Request) (*dto.List${1:Domain}${2:Sub}Response, error)
+	Update${2:Sub}(ctx context.Context, req *dto.Update${1:Domain}${2:Sub}Request) (*dto.Update${1:Domain}${2:Sub}Response, error)
+	Delete${2:Sub}(ctx context.Context, req *dto.Delete${1:Domain}${2:Sub}Request) (*dto.Delete${1:Domain}${2:Sub}Response, error)
+
+snippet crud_gin_apis "crud gin apis"
+	//	@Summary		Create a new record
+	//	@Description	Create a new record
+	//	@Tags			${2:plurals}
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			request	body		dto.Create${1:Domain}${3:Sub}Request	true	"creation data"
+	//	@Success		200		{object}	dto.Create${1:Domain}${3:Sub}Response
+	//	@Failure		400		{object}	ErrorResponse
+	//	@Failure		404		{object}	ErrorResponse
+	//	@Failure		500		{object}	ErrorResponse
+	//	@Router			${5:prefix}/${4:routes} [post]
+	//
+	// Create record.
+	func (h *${1:Domain}) Create${3:Sub}(c *gin.Context) {
+		// body
+		CreateJSON(c, h.svc.Create${3:Sub}, c.BindJSON)
+	}
+
+	//	@Summary		Get record by id
+	//	@Description	Get record by id
+	//	@Tags			${2:plurals}
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			id	path		int	true	"id"	minimum(1)
+	//	@Success		200	{object}	dto.Get${1:Domain}${3:Sub}Response
+	//	@Failure		400	{object}	ErrorResponse
+	//	@Failure		404	{object}	ErrorResponse
+	//	@Failure		500	{object}	ErrorResponse
+	//	@Router			${5:prefix}/${4:routes}/{id} [get]
+	//
+	// Get record by id.
+	func (h *${1:Domain}) Get${3:Sub}(c *gin.Context) {
+		// uri: id
+		GetJSON(c, h.svc.Get${3:Sub}, c.BindUri)
+	}
+
+	//	@Summary		List records by queries.
+	//	@Description	List records by queries.
+	//	@Tags			${2:plurals}
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			f	query		string	false	"filter"	default({})
+	//	@Param			s	query		string	false	"sort"		default("asc")
+	//	@Param			o	query		string	false	"order"		default("created_at")
+	//	@Param			p	query		number	false	"page"		default(1)
+	//	@Param			l	query		number	false	"limit"		default(10)
+	//	@Success		200	{object}	dto.List${1:Domain}${3:Sub}Response
+	//	@Failure		400	{object}	ErrorResponse
+	//	@Failure		404	{object}	ErrorResponse
+	//	@Failure		500	{object}	ErrorResponse
+	//	@Router			${5:prefix}/${4:routes} [get]
+	//
+	// List records.
+	func (h *${1:Domain}) List${3:Sub}(c *gin.Context) {
+		// query: f,s,o,l,p
+		GetJSON(c, h.svc.List${3:Sub}, c.BindQuery)
+	}
+
+	//	@Summary		Update a record
+	//	@Description	Update a record
+	//	@Tags			${2:plurals}
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			id		path		int						true	"id"	minimum(1)
+	//	@Param			request	body		dto.Update${1:Domain}${3:Sub}Request	true	"updation data"
+	//	@Success		200		{string}	dto.Update${1:Domain}${3:Sub}Response
+	//	@Failure		400		{object}	ErrorResponse
+	//	@Failure		404		{object}	ErrorResponse
+	//	@Failure		500		{object}	ErrorResponse
+	//	@Router			${5:prefix}/${4:routes}/{id} [patch]
+	//
+	// Update record.
+	func (h *${1:Domain}) Update${3:Sub}(c *gin.Context) {
+		// uri: id, body
+		UpdateJSON(c, h.svc.Update${3:Sub}, c.BindUri, c.BindJSON)
+	}
+
+	//	@Summary		Delete a record by id
+	//	@Description	Delete a record by id
+	//	@Tags			${2:plurals}
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			id	path		int		true	"id"		minimum(1)
+	//	@Param			f	query		string	false	"filter"	default({})
+	//	@Success		200	{string}	dto.Delete${1:Domain}${3:Sub}Response
+	//	@Failure		400	{object}	ErrorResponse
+	//	@Failure		404	{object}	ErrorResponse
+	//	@Failure		500	{object}	ErrorResponse
+	//	@Router			${5:prefix}/${4:routes}/{id} [delete]
+	//
+	// Delete record.
+	func (h *${1:Domain}) Delete${3:Sub}(c *gin.Context) {
+		// uri: id
+		DeleteJSON(c, h.svc.Delete${3:Sub}, c.BindUri)
+	}
+
+snippet buuuk_init_http "buuuk template"
+	// HTTP is the HTTP resolver for ${1}.
+	type HTTP struct {
+		httpapi.Base
+		svc Service
+	}
+
+	// NewHTTP creates new HTTP instance.
+	func NewHTTP(svc Service) *HTTP {
+		h := &HTTP{
+			svc: svc,
+		}
+
+		return h
+	}
+
+
+snippet buuuk_register_http "buuuk template"
+	// Register${1:Endpoint}HTTP registers HTTP handlers to serve ${2:Domain} apis.
+		func (h *HTTP) Register${1:Endpoint}HTTP(e *echo.Group) *HTTP {
+
+		return h
+	}
+
+snippet buuuk_init_service "buuuk template"
+	// ${1:Domain} service.
+	type ${1:Domain} struct {
+		Base
+		repos repo.UnitOfWork
+	}
+
+	// New${1:Domain} creates new ${2:literal} service.
+	func New${1:Domain}(uow repo.UnitOfWork) *${1:Domain} {
+		c := &${1:Domain}{
+			repos: uow,
+		}
+
+		return c
+	}

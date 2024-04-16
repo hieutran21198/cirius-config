@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task -l
+      - echo "task [--flags] [tasks...] [-- CLI_ARGS...]"
+
+  install:
+    desc: "install tool. Eg: task install wezterm"
+    cmds:
+      - ./scripts/install-tools.sh {{ .TOOL_NAME }} {{ .CLI_ARGS }}
+
+  install:nix:
+    cmds:
+      - curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    desc: "nicer overview of the installation steps, designed to survive macOS upgrades, Flakes enable by default."
