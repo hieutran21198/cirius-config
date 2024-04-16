@@ -13,7 +13,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.neovim
+        [ pkgs.vim
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -40,12 +40,12 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."cirius" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#hieutran
+    darwinConfigurations."hieutran" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."cirius".pkgs;
+    darwinPackages = self.darwinConfigurations."hieutran".pkgs;
   };
 }
