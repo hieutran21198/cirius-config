@@ -1,0 +1,41 @@
+snippet echo_http_handler "Example echo handler"
+	func (h *${1:HTTP}) ${2:Action}(c echo.Context) (err error) {
+		var (
+			ctx = c.Request().Context()
+			req = &dto.$2Request{}
+			res *dto.$2Response
+		)
+
+		if err = c.Bind(req); err != nil {
+			return
+		}
+
+		if err = c.Validate(req); err != nil {
+			return
+		}
+
+		if res, err = h.$2(ctx, req); err != nil {
+			return
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+
+snippet echo_domain_handler "Example domain handler"
+	func (h *${1:Domain}) ${2:Action}${3:SubDomain}(c echo.Context) (err error) {
+		var (
+			ctx = c.Request().Context()
+			req = &dto.$2$1$3Request{}
+			res *dto.$2$1$3Response
+		)
+		if err = c.Bind(req); err != nil {
+			return
+		}
+		if err = c.Validate(req); err != nil {
+			return
+		}
+		if res, err = h.$2$3(ctx, req); err != nil {
+			return
+		}
+		return c.JSON(http.StatusOK, res)
+	}
