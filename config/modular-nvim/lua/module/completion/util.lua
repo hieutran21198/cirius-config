@@ -60,7 +60,7 @@ M.next_suggestion = function(fallback)
 	local cmp = require("cmp")
 
 	if cmp.visible() then
-		cmp.select_next_item()
+		cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 		return
 	end
 
@@ -77,7 +77,7 @@ M.previous_suggestion = function(fallback)
 	local cmp = require("cmp")
 
 	if cmp.visible() then
-		cmp.select_prev_item()
+		cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 		return
 	end
 

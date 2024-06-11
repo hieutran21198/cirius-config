@@ -27,6 +27,12 @@ return {
 			mode = "n",
 		},
 		{
+			"<leader>fb",
+			"<cmd>Telescope buffers<cr>",
+			desc = "Openned buffers",
+			mode = "n",
+		},
+		{
 			"<leader>fr",
 			"<cmd>Telescope resume<cr>",
 			desc = "Reopen last telescope window",

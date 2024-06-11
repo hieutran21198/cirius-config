@@ -18,9 +18,7 @@ M.make_nls_sources = function()
 		-- go
 		builtins.code_actions.gomodifytags,
 		builtins.code_actions.impl,
-		-- builtins.diagnostics.golangci_lint,
 		builtins.formatting.goimports,
-		-- builtins.formatting.gofumpt,
 		builtins.formatting.goimports_reviser,
 
 		-- git

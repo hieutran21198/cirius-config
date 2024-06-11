@@ -11,8 +11,8 @@ local M = {
 				update_root = true,
 			},
 			view = {
-				side = "right",
-				number = false,
+				side = "left",
+				number = true,
 				width = 50,
 			},
 			renderer = {

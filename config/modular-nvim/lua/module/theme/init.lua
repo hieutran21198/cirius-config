@@ -1,3 +1,35 @@
+local themes = {
+	{
+		"ellisonleao/gruvbox.nvim",
+		opts = {
+			terminal_colors = true,
+			transparent_mode = true,
+		},
+	},
+	{ "rebelot/kanagawa.nvim" },
+	{ "EdenEast/nightfox.nvim" },
+	{ "nyoom-engineering/oxocarbon.nvim" },
+	{ "Mofiqul/vscode.nvim" },
+	{ "bluz71/vim-moonfly-colors" },
+}
+
+for _, theme in ipairs(themes) do
+	theme.lazy = true
+	theme.priority = 1000
+	theme.event = "VeryLazy"
+end
+
+local theme_names = {
+	"gruvbox",
+	"kanagawa-wave",
+	"kanagawa-dragon",
+	"kanagawa-lotus",
+	"nightfox",
+	"oxocarbon",
+	"vscode",
+	"moonfly",
+}
+
 return {
 	{ "stevearc/dressing.nvim" },
 	{
@@ -8,41 +40,22 @@ return {
 		},
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"folke/trouble.nvim",
-		},
-		opts = function(_, opts)
-			local ok, trouble = pcall(require, "trouble")
-			if ok then
-			end
-
-			return opts
-		end,
-	},
-	{
 		"zaldih/themery.nvim",
 		keys = {
 			{ "<leader>ft", "<cmd>Themery<cr>", desc = "Change themes", mode = "n" },
 		},
-		dependencies = {
-			{
-				"/ellisonleao/gruvbox.nvim",
-				event = "VeryLazy",
-				opts = {
-					terminal_colors = true, -- add neovim terminal colors
-					transparent_mode = true,
-				},
-			},
-		},
+		dependencies = themes,
 		config = function()
+			local theme_items = {}
+			for _, theme in ipairs(theme_names) do
+				table.insert(theme_items, {
+					name = theme,
+					colorscheme = theme,
+				})
+			end
+
 			require("themery").setup({
-				themes = {
-					{
-						name = "gruvbox",
-						colorscheme = "gruvbox",
-					},
-				},
+				themes = theme_items,
 				themeConfigFile = "~/.config/nvim/lua/module/theme/theme.lua",
 				livePreview = true,
 			})

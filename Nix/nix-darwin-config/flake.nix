@@ -16,7 +16,6 @@
       environment.systemPackages =
         with pkgs; [ 
           vim
-          neovim
         ];
 
       # Auto upgrade nix package and the daemon service.
