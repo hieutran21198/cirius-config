@@ -58,7 +58,7 @@ local opts = {
 		eob = " ",
 	},
 	listchars = {
-		space = "·",
+		space = " ",
 		tab = "  ",
 	},
 	foldlevel = 99,

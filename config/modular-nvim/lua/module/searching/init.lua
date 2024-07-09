@@ -16,7 +16,6 @@ local M = {
 			local telescope = require("telescope")
 			telescope.setup(opts)
 			telescope.load_extension("undo")
-			telescope.load_extension("projects")
 		end,
 	},
 }

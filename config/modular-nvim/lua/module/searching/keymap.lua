@@ -38,11 +38,5 @@ return {
 			desc = "Reopen last telescope window",
 			mode = "n",
 		},
-		{
-			"<leader>fp",
-			"<cmd>lua require'telescope'.extensions.projects.projects{}<cr>",
-			desc = "Show saved projects",
-			mode = "n",
-		},
 	},
 }

@@ -63,10 +63,9 @@ local M = {
 					ghost_text = { hlgroup = "Comment" },
 				},
 				sources = cmp.config.sources({
-
 					{ name = "nvim_lsp" },
-					{ name = "copilot", group_index = 2 },
 					{ name = "codeium" },
+					{ name = "copilot" },
 					{ name = "snippy" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "treesitter" },

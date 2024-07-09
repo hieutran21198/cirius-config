@@ -56,10 +56,25 @@ M.icons = {
 	TabNine = "",
 }
 
+M.has_word_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
+
+	local place = vim.api.nvim_win_get_cursor(0)
+	local line, col = unpack(place)
+
+	if col == 0 then
+		return false
+	end
+
+	return vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 M.next_suggestion = function(fallback)
 	local cmp = require("cmp")
 
-	if cmp.visible() then
+	if cmp.visible() and M.has_word_before() then
 		cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 		return
 	end
@@ -76,7 +91,7 @@ end
 M.previous_suggestion = function(fallback)
 	local cmp = require("cmp")
 
-	if cmp.visible() then
+	if cmp.visible() and M.has_word_before() then
 		cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 		return
 	end
