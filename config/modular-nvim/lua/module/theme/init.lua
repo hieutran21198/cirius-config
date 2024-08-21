@@ -19,17 +19,6 @@ for _, theme in ipairs(themes) do
 	theme.event = "VeryLazy"
 end
 
-local theme_names = {
-	"gruvbox",
-	"kanagawa-wave",
-	"kanagawa-dragon",
-	"kanagawa-lotus",
-	"nightfox",
-	"oxocarbon",
-	"vscode",
-	"moonfly",
-}
-
 return {
 	{ "stevearc/dressing.nvim" },
 	{
@@ -47,7 +36,15 @@ return {
 		dependencies = themes,
 		config = function()
 			local theme_items = {}
-			for _, theme in ipairs(theme_names) do
+			for _, theme in ipairs({
+				"gruvbox",
+				"kanagawa-wave",
+				"kanagawa-dragon",
+				"kanagawa-lotus",
+				"oxocarbon",
+				"vscode",
+				"moonfly",
+			}) do
 				table.insert(theme_items, {
 					name = theme,
 					colorscheme = theme,

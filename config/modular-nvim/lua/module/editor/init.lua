@@ -55,16 +55,9 @@ return {
 	-- 	end,
 	-- },
 	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		event = "VeryLazy",
-		config = function()
-			require("nvim-treesitter.configs").setup({})
-		end,
-	},
-	{
 		"NvChad/nvim-colorizer.lua",
 		config = function()
-			require("colorizer").setup()
+			require("colorizer").setup({})
 		end,
 	},
 }

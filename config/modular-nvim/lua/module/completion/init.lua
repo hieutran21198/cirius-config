@@ -64,7 +64,6 @@ local M = {
 				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "codeium" },
 					{ name = "copilot" },
 					{ name = "snippy" },
 					{ name = "nvim_lsp_signature_help" },

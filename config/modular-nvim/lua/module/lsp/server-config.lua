@@ -47,13 +47,8 @@ M.make_nls_sources = function()
 		builtins.diagnostics.stylelint,
 
 		-- sql
-		builtins.diagnostics.sqlfluff.with({
-			extra_args = { "--dialect", "postgres" },
-		}),
+		builtins.formatting.sqlfmt,
 		builtins.formatting.sql_formatter,
-		builtins.formatting.sqlfluff.with({
-			extra_args = { "--dialect", "postgres" },
-		}),
 	}
 end
 

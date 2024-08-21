@@ -6,7 +6,7 @@ local M = {
 	capabilities = vim.lsp.protocol.make_client_capabilities(),
 	signature_help = true,
 	use_alternative_keymaps = false,
-	set_alt_mappings = function(server_name, bufnr) end,
+	set_alt_mappings = function(_, _) end,
 }
 
 M.set_custom_on_attach = function(on_attach)
@@ -82,10 +82,6 @@ M.on_attach = function(client, bufnr)
 
 	local get_token_provider = require("module.lsp.token-provider")
 	M.override_semantic_token_provider(client, get_token_provider(client.name))
-
-	if M.signature_help and client.server_capabilities.signatureHelpProvider then
-		-- TODO: handle this.
-	end
 
 	if not M.use_alternative_keymaps then
 		local lsp_buf = vim.lsp.buf

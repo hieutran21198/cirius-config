@@ -7,10 +7,6 @@ local M = {
 		"neovim/nvim-lspconfig",
 		event = "VeryLazy",
 	},
-	-- {
-	-- 	"hinell/lsp-timeout.nvim",
-	-- 	dependencies = { "neovim/nvim-lspconfig" },
-	-- },
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
@@ -49,11 +45,7 @@ local M = {
 		"nvim-treesitter/nvim-treesitter",
 		event = "VeryLazy",
 		opts = {
-			ensure_installed = {
-				"bash",
-				"go",
-				"lua",
-			},
+			ensure_installed = {},
 			auto_install = true,
 			sync_install = true,
 		},
